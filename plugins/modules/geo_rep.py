@@ -18,11 +18,186 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
 # USA.
 
-import sys
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
+
+DOCUMENTATION = """
+module: geo_rep
+short_description: Manage geo-replication sessions
+description:
+  - Create, stop, delete and configure geo-replication session
+author: Sachidananda Urs (@sac)
+options:
+  action:
+    description:
+      - Action to be performed on geo-replication session.
+    required: true
+    choices: ['create', 'start', 'stop', 'delete', 'pause', 'resume', 'config']
+    type: str
+  mastervol:
+    description:
+      - Master volume name.
+    type: str
+  slavevol:
+    description:
+      - Slave volume name.
+    type: str
+  force:
+    description:
+      - force the system to perform the action.
+    type: str
+  georepuser:
+    description:
+      - Username to be used for the action being performed.
+    type: str
+  gluster_log_file:
+    description:
+      - The path to the geo-replication glusterfs log file.
+    type: str
+  gluster_log_level:
+    description:
+      - The log level for glusterfs processes.
+    type: str
+  log_file:
+    description:
+      - The path to the geo-replication log file.
+    type: str
+  log_level:
+    description:
+      - The log level for geo-replication.
+    type: str
+  changelog_log_level:
+    description:
+      - The log level for the changelog.
+    type: str
+  ssh_command:
+    description:
+      - The SSH command to connect to the remote machine.
+    type: str
+  rsync_command:
+    description:
+      - The command to use for setting synchronizing method for the files.
+    type: str
+  use_tarssh:
+    description:
+      - To use tar over ssh.
+    type: str
+  volume_id:
+    description:
+      - deletes the existing master UID for the intermediate/slave node.
+    type: str
+  timeout:
+    description:
+      - timeout period.
+    type: str
+  sync_jobs:
+    description:
+      - number of sync-jobs .
+    type: str
+  ignore_deletes:
+    description:
+      - file deletion on the master will not trigger a delete operation on the slave.
+    type: str
+  checkpoint:
+    description:
+      - Sets a checkpoint with the given option.
+    type: str
+  sync_acls:
+    description:
+      - Syncs acls to the Slave cluster.
+    type: str
+  sync_xattrs:
+    description:
+      - Syncs extended attributes to the Slave cluster.
+    type: str
+  log_rsync_performance:
+    description:
+      - for recording the rsync performance in log files.
+    type: str
+  rsync_options:
+    description:
+      - Additional options to rsync.
+    type: str
+  use_meta_volume:
+    description:
+      - to use meta volume in Geo-replication.
+    type: str
+  meta_volume_mnt:
+    description:
+      - The path of the meta volume mount point.
+    type: str
+"""
+
+EXAMPLES = """
+- name: Create the geo-rep session
+  geo_rep:
+    action: create
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    force: true
+    georepuser: staff
+- name: Starts the geo-rep session
+  geo_rep:
+    action: start
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    force: true
+    georepuser: staff
+- name: Pause the geo-rep session
+  geo_rep:
+    action: pause
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    force: true
+    georepuser: staff
+- name: Resume the geo-rep session
+  geo_rep:
+    action: resume
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    force: true
+    georepuser: staff
+- name: Stop the geo-rep session
+  geo_rep:
+    action: stop
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    force: true
+    georepuser: staff
+- name: Configures the geo-rep session
+  geo_rep:
+    action: config
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    gluster_log_file: /var/log/glusterfs/geo-replication/gluster.log
+    gluster_log_level: INFO
+    log_file: /var/log/glusterfs/geo-replication/file.log
+    log_level: INFO
+    changelog_log_level: INFO
+    ssh_command: SSH
+    rsync_command: rsync
+    use_tarssh: true
+    volume_id: 6a071cfa-b150-4f0b-b1ed-96ab5d4bd671
+    timeout: 60
+    sync_jobs: 3
+    ignore_deletes: 1
+    checkpoint: now
+    sync_acls: true
+    sync_xattr: true
+    log_rsync_performance: true
+    rsync_options: --compress-level=0
+    use_meta_volume: true
+    meta_volume_mnt: /var/run/gluster/shared_storage/
+- name: Delete the geo-rep session
+  geo_rep:
+    action: delete
+    mastervol: 10.70.42.122:mastervolume
+    slavevol: 10.70.43.48:slavevolume
+    georepuser: staff
+"""
+
 import re
-from collections import OrderedDict
-from ansible.module_utils.basic import *
-from ast import literal_eval
+from ansible.module_utils.basic import AnsibleModule
 
 
 class GeoRep(object):
@@ -52,7 +227,7 @@ class GeoRep(object):
             force = 'force' if force == 'yes' else ' '
         options = 'no-verify' if self.action == 'create' \
             else self.config_georep()
-        if type(options) is list:
+        if isinstance(options, list):
             for opt in options:
                 rc, output, err = self.call_gluster_cmd('volume',
                                                         'geo-replication',
@@ -135,7 +310,7 @@ class GeoRep(object):
         return self.module.run_command(cmd)
 
 
-if __name__ == '__main__':
+def main():
     module = AnsibleModule(
         argument_spec=dict(
             action=dict(required=True, choices=['create', 'start',
@@ -165,5 +340,8 @@ if __name__ == '__main__':
             meta_volume_mnt=dict()
         ),
     )
-
     GeoRep(module)
+
+
+if __name__ == "__main__":
+    main()
