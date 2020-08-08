@@ -16,7 +16,6 @@ module: gluster_volume
 short_description: Manage GlusterFS volumes
 description:
   - Create, remove, start, stop and tune GlusterFS volumes
-version_added: '1.0'
 options:
   name:
     description:
@@ -47,7 +46,6 @@ options:
     description:
       - Arbiter count for volume.
     type: int
-    version_added: '1.0'
   stripes:
     description:
       - Stripe count for volume.
@@ -55,12 +53,10 @@ options:
   disperses:
     description:
       - Disperse count for volume.
-    version_added: '1.0'
     type: int
   redundancies:
     description:
       - Redundancy count for volume.
-    version_added: '1.0'
     type: int
   transport:
     description:

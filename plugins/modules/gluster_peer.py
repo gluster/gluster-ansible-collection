@@ -22,7 +22,6 @@ description:
   - Create or diminish a GlusterFS trusted storage pool. A set of nodes can be
     added into an existing trusted storage pool or a new storage pool can be
     formed. Or, nodes can be removed from an existing trusted storage pool.
-version_added: "1.0"
 author: Sachidananda Urs (@sac)
 options:
     state:

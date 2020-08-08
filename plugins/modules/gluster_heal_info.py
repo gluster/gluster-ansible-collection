@@ -17,7 +17,6 @@ DOCUMENTATION = '''
 module: gluster_heal_info
 short_description: Gather information on self-heal or rebalance status
 author: "Devyani Kota (@devyanikota)"
-version_added: "1.0"
 description:
   - Gather facts about either self-heal or rebalance status.
   - This module was called C(gluster_heal_facts) before Ansible 2.9, returning C(ansible_facts).
