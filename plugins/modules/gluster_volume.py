@@ -109,7 +109,7 @@ author:
 
 EXAMPLES = """
 - name: create gluster volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: test1
     bricks: /bricks/brick1/g1
@@ -120,14 +120,14 @@ EXAMPLES = """
   run_once: true
 
 - name: tune
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: test1
     options:
       performance.cache-size: 256MB
 
 - name: Set multiple options on GlusterFS volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: test1
     options:
@@ -137,29 +137,29 @@ EXAMPLES = """
       }
 
 - name: start gluster volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: started
     name: test1
 
 - name: limit usage
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: test1
     directory: /foo
     quota: 20.0MB
 
 - name: stop gluster volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: stopped
     name: test1
 
 - name: remove gluster volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: absent
     name: test1
 
 - name: create gluster volume with multiple bricks
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: test2
     bricks: /bricks/brick1/g2,/bricks/brick2/g2
@@ -169,7 +169,7 @@ EXAMPLES = """
   run_once: true
 
 - name: Remove the bricks from gluster volume
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: testvol
     bricks: /bricks/brick1/b1,/bricks/brick2/b2
@@ -179,7 +179,7 @@ EXAMPLES = """
   run_once: true
 
 - name: Reduce cluster configuration
-  gluster_volume:
+  gluster.gluster.gluster_volume:
     state: present
     name: testvol
     bricks: /bricks/brick3/b1,/bricks/brick4/b2
