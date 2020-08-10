@@ -23,7 +23,7 @@ Modules documentation
 
 Dependencies
 ------------
-
+Dependent on lv module (yet to update the doc on the lv module command to install from ansible-collections)
 None.
 
 Example Playbook
