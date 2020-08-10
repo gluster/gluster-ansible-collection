@@ -2,15 +2,15 @@ namespace: gluster
 name: gluster
 version: 1.0.0
 readme: README.md
-
-# A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
-# @nicks:irc/im.site#channel'
 authors:
   - gluster (github.com/gluster)```
+  - Prajith Kesava Prasad <pkesavap@redhat.com>
+  - Kesavan Vellalore Thiruvenkadasamy <kvellalo@redhat.com>
 
 description: Administrate a gluster cluster.
 license:
 - GPL-2.0-or-later
+license_file: ./LICENSE
 tags: [gluster, storage]
 dependencies: {}
 repository: https://github.com/gluster/gluster-ansible-collection
