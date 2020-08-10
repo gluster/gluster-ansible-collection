@@ -3,19 +3,17 @@ name: gluster
 version: 1.0.0
 readme: README.md
 authors:
-- Prajith Kesava Prasad <pkesavap@redhat.com>
-- Kesavan Vellalore Thiruvenkadasamy <kvellalo@redhat.com>
+  - gluster (github.com/gluster)```
+  - Prajith Kesava Prasad <pkesavap@redhat.com>
+  - Kesavan Vellalore Thiruvenkadasamy <kvellalo@redhat.com>
 
-description: Module used to create a gluster cluster
+description: Administrate a gluster cluster.
 license:
 - GPL-2.0-or-later
-# The path to the license file for the collection. This path is relative to the root of the collection. This key is
-# mutually exclusive with 'license'
 license_file: ./LICENSE
 tags: [gluster, storage]
-
 dependencies: {}
-repository: http://example.com/repository
+repository: https://github.com/gluster/gluster-ansible-collection
 documentation: https://docs.ansible.com/ansible/latest/
 homepage: https://github.com/gluster/gluster-ansible-collection
 issues: https://github.com/gluster/gluster-ansible-collection/issues
