@@ -1,0 +1,49 @@
+---
+name: Plugins CI
+on:
+  push:
+    paths:
+      - 'plugins/**'
+      - 'tests/**'
+      - '.github/workflows/ansible-test-plugins.yml'
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - 'tests/**'
+      - '.github/workflows/ansible-test-plugins.yml'
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  sanity:
+    name: "Sanity (Python: ${{ matrix.python }}, Ansible: ${{ matrix.ansible }})"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible:
+          - stable-2.9
+          - stable-2.10
+          - devel
+        python:
+          - 2.7
+          - 3.6
+          - 3.7
+          - 3.8
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/gluster/gluster
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install ansible-base (${{ matrix.ansible }})
+        run: pip install https://github.com/ansible/ansible/archive/${{ matrix.ansible }}.tar.gz --disable-pip-version-check
+
+      - name: Run sanity tests
+        run: ansible-test sanity --docker -v --color --python ${{ matrix.python }}
+        working-directory: ./ansible_collections/gluster/gluster
