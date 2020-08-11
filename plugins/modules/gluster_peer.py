@@ -22,7 +22,6 @@ description:
   - Create or diminish a GlusterFS trusted storage pool. A set of nodes can be
     added into an existing trusted storage pool or a new storage pool can be
     formed. Or, nodes can be removed from an existing trusted storage pool.
-version_added: "2.6"
 author: Sachidananda Urs (@sac)
 options:
     state:
@@ -55,20 +54,20 @@ notes:
 
 EXAMPLES = '''
 - name: Create a trusted storage pool
-  gluster_peer:
+  gluster.gluster.gluster_peer:
         state: present
         nodes:
              - 10.0.1.5
              - 10.0.1.10
 
 - name: Delete a node from the trusted storage pool
-  gluster_peer:
+  gluster.gluster.gluster_peer:
          state: absent
          nodes:
               - 10.0.1.10
 
 - name: Delete a node from the trusted storage pool by force
-  gluster_peer:
+  gluster.gluster.gluster_peer:
          state: absent
          nodes:
               - 10.0.0.1

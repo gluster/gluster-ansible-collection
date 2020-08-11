@@ -17,11 +17,10 @@ DOCUMENTATION = '''
 module: gluster_heal_info
 short_description: Gather information on self-heal or rebalance status
 author: "Devyani Kota (@devyanikota)"
-version_added: "2.8"
 description:
   - Gather facts about either self-heal or rebalance status.
   - This module was called C(gluster_heal_facts) before Ansible 2.9, returning C(ansible_facts).
-    Note that the M(gluster_heal_info) module no longer returns C(ansible_facts)!
+    Note that the M(gluster.gluster.gluster_heal_info) module no longer returns C(ansible_facts)!
 options:
   name:
     description:
@@ -43,7 +42,7 @@ requirements:
 
 EXAMPLES = '''
 - name: Gather self-heal facts about all gluster hosts in the cluster
-  gluster_heal_info:
+  gluster.gluster.gluster_heal_info:
     name: test_volume
     status_filter: self-heal
   register: self_heal_status
@@ -51,7 +50,7 @@ EXAMPLES = '''
     var: self_heal_status
 
 - name: Gather rebalance facts about all gluster hosts in the cluster
-  gluster_heal_info:
+  gluster.gluster.gluster_heal_info:
     name: test_volume
     status_filter: rebalance
   register: rebalance_status

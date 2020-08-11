@@ -130,42 +130,42 @@ options:
 
 EXAMPLES = """
 - name: Create the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: create
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
     force: true
     georepuser: staff
 - name: Starts the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: start
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
     force: true
     georepuser: staff
 - name: Pause the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: pause
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
     force: true
     georepuser: staff
 - name: Resume the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: resume
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
     force: true
     georepuser: staff
 - name: Stop the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: stop
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
     force: true
     georepuser: staff
 - name: Configures the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: config
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
@@ -189,7 +189,7 @@ EXAMPLES = """
     use_meta_volume: true
     meta_volume_mnt: /var/run/gluster/shared_storage/
 - name: Delete the geo-rep session
-  geo_rep:
+  gluster.gluster.geo_rep:
     action: delete
     mastervol: 10.70.42.122:mastervolume
     slavevol: 10.70.43.48:slavevolume
