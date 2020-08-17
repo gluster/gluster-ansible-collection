@@ -34,4 +34,4 @@ playbook
 License
 -------
 
-Apache License 2.0
+GNU General Public License v2.0
