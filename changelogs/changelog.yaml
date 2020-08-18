@@ -3,7 +3,8 @@ releases:
   1.0.0:
     changes:
       major_changes:
-      - geo_rep - Added the independent module of geo rep with other gluster modules (https://github.com/gluster/gluster-ansible-collection/pull/2).
+      - geo_rep - Added the independent module of geo rep with other gluster modules
+        (https://github.com/gluster/gluster-ansible-collection/pull/2).
     fragments:
     - 2-geo_rep.py
     modules:
@@ -20,3 +21,5 @@ releases:
       name: gluster_volume
       namespace: ''
     release_date: '2020-06-29'
+  1.0.1:
+    release_date: '2020-08-18'
