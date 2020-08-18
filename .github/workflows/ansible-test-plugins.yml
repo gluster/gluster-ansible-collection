@@ -6,6 +6,8 @@ on:
       - 'plugins/**'
       - 'tests/**'
       - '.github/workflows/ansible-test-plugins.yml'
+      - 'changelogs/*'
+      - 'galaxy.yml'
   pull_request:
     paths:
       - 'plugins/**'

@@ -8,8 +8,6 @@ authors:
   - Kesavan Vellalore Thiruvenkadasamy <kvellalo@redhat.com>
 
 description: Administrate a gluster cluster.
-license:
-- GPL-2.0
 license_file: ./LICENSE
 tags: [gluster, storage]
 dependencies: {}
