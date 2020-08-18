@@ -9,7 +9,7 @@ authors:
 
 description: Administrate a gluster cluster.
 license:
-- GPL-2.0-or-later
+- GPL-2.0
 license_file: ./LICENSE
 tags: [gluster, storage]
 dependencies: {}
