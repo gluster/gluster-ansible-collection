@@ -20,4 +20,3 @@ releases:
       name: gluster_volume
       namespace: ''
     release_date: '2020-06-29'
-
