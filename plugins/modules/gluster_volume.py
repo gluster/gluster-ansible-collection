@@ -541,6 +541,12 @@ def main():
             changed = True
 
         if volume_name in volumes:
+            # set options
+            for option in options.keys():
+                if option not in volumes[volume_name]['options'] or volumes[volume_name]['options'][option] != options[option]:
+                    set_volume_option(volume_name, option, options[option])
+                    changed = True
+
             if volumes[volume_name]['status'].lower() != 'started' and start_on_create:
                 start_volume(volume_name)
                 changed = True
@@ -582,12 +588,6 @@ def main():
                 quotas = get_quotas(volume_name, False)
                 if directory not in quotas or quotas[directory] != quota:
                     set_quota(volume_name, directory, quota)
-                    changed = True
-
-            # set options
-            for option in options.keys():
-                if option not in volumes[volume_name]['options'] or volumes[volume_name]['options'][option] != options[option]:
-                    set_volume_option(volume_name, option, options[option])
                     changed = True
 
         else:
