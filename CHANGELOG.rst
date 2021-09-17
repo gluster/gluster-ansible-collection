@@ -5,6 +5,14 @@ Gluster Ansible Collection Release Notes
 .. contents:: Topics
 
 
+v1.0.2
+======
+
+Major Changes
+-------------
+
+- enable client.ssl,server.ssl before starting the gluster volume (https://github.com/gluster/gluster-ansible-collection/pull/19)
+
 v1.0.1
 ======
 

@@ -1,11 +1,10 @@
 namespace: gluster
 name: gluster
-version: 1.0.1
+version: 1.0.2
 readme: README.md
 authors:
   - gluster (github.com/gluster)```
   - Prajith Kesava Prasad <pkesavap@redhat.com>
-  - Kesavan Vellalore Thiruvenkadasamy <kvellalo@redhat.com>
 
 description: Administrate a gluster cluster.
 license_file: ./LICENSE
