@@ -373,7 +373,7 @@ def set_volume_option(name, option, parameter):
     run_gluster(['volume', 'set', name, option, parameter])
 
 
-def add_bricks(name, new_bricks, stripe, replica, force):
+def add_bricks(name, new_bricks, stripe, replica, arbiter, force):
     args = ['volume', 'add-brick', name]
     if stripe:
         args.append('stripe')
@@ -381,6 +381,9 @@ def add_bricks(name, new_bricks, stripe, replica, force):
     if replica:
         args.append('replica')
         args.append(str(replica))
+    if arbiter:
+        args.append('arbiter')
+        args.append(str(arbiter))
     args.extend(new_bricks)
     if force:
         args.append('force')
@@ -423,13 +426,16 @@ def remove_bricks(name, removed_bricks, force):
                                  "Commit operation needs to be followed.")
 
 
-def reduce_config(name, removed_bricks, replicas, force):
+def reduce_config(name, removed_bricks, replica, arbiter, force):
     out = run_gluster(['volume', 'heal', name, 'info'])
     summary = out.split("\n")
     for line in summary:
         if 'Number' in line and int(line.split(":")[1].strip()) != 0:
             module.fail_json(msg="Operation aborted, self-heal in progress.")
-    args = ['volume', 'remove-brick', name, 'replica', replicas]
+    args = ['volume', 'remove-brick', name, 'replica', str(replicas)]
+    if arbiter:
+        args.append('arbiter')
+        args.append(str(arbiter))
     args.extend(removed_bricks)
     if force:
         args.append('force')
@@ -571,12 +577,12 @@ def main():
                         removed_bricks.append(brick)
 
             if new_bricks:
-                add_bricks(volume_name, new_bricks, stripes, replicas, force)
+                add_bricks(volume_name, new_bricks, stripes, replicas, arbiters, force)
                 changed = True
 
             if removed_bricks:
                 if replicas and int(replicas) < int(volumes[volume_name]['replicas']):
-                    reduce_config(volume_name, removed_bricks, str(replicas), force)
+                    reduce_config(volume_name, removed_bricks, replicas, arbiters, force)
                 else:
                     remove_bricks(volume_name, removed_bricks, force)
                 changed = True
