@@ -432,7 +432,7 @@ def reduce_config(name, removed_bricks, replica, arbiter, force):
     for line in summary:
         if 'Number' in line and int(line.split(":")[1].strip()) != 0:
             module.fail_json(msg="Operation aborted, self-heal in progress.")
-    args = ['volume', 'remove-brick', name, 'replica', str(replicas)]
+    args = ['volume', 'remove-brick', name, 'replica', str(replica)]
     if arbiter:
         args.append('arbiter')
         args.append(str(arbiter))
